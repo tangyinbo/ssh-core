@@ -20,6 +20,22 @@ public class PersonService {
 		s.save(p);
 		t.commit();
 		s.close();*/
-		sessionFactory.openSession().save(p);
+		sessionFactory.getCurrentSession().save(p);
+	}
+	public void savePerson(Person p) {
+		/*Session s =sessionFactory.openSession();
+		Transaction t =s.beginTransaction();
+		s.save(p);
+		t.commit();
+		s.close();*/
+		sessionFactory.getCurrentSession().save(p);
+	}
+	public void selectPerson(Person p) {
+		/*Session s =sessionFactory.openSession();
+		Transaction t =s.beginTransaction();
+		s.save(p);
+		t.commit();
+		s.close();*/
+		sessionFactory.getCurrentSession().save(p);
 	}
 }

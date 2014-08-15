@@ -12,7 +12,7 @@ public class SpringContestTest {
 		PersonService service=(PersonService) context.getBean("personService");
 		Person p = new Person();
 		p.setName("admin");
-		p.setAge(1);
+		p.setAge(5);
 		service.addPerson(p);
 	}
 }

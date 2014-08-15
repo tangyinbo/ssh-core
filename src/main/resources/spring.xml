@@ -35,17 +35,16 @@
 			<tx:method name="correct*" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" />
-			<tx:method name="save*" propagation="REQUIRED" />
-			<tx:method name="get" propagation="SUPPORTS" read-only="true"/>
-			<tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
-			<tx:method name="read*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="get" propagation="REQUIRED" read-only="true"/>
+			<tx:method name="select*" propagation="REQUIRED" read-only="true"/>
+			<tx:method name="read*" propagation="REQUIRED" read-only="true"/>
 		</tx:attributes>
 	</tx:advice>
+	
 	<!-- 配置切面,通知 -->
 	<aop:config>
-		<aop:pointcut expression="execution(* cn.edu.ssh.service.*.*(..)))"
+		<aop:pointcut expression="execution(* cn.edu.ssh.service..*.*(..)))"
 			id="trans_point" />
 		<aop:advisor advice-ref="sys_transact" pointcut-ref="trans_point" />
 	</aop:config>
-
 </beans>
