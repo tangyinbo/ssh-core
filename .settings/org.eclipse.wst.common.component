@@ -6,6 +6,7 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/META-INF"/>
         <property name="context-root" value="/ssh-core"/>
         <property name="java-output-path" value="/ssh-core/src/main/webapp/src/main/resources"/>
     </wb-module>

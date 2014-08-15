@@ -10,41 +10,41 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
-    
     <context:annotation-config />
-	<context:component-scan base-package="cn.edu.ssh"></context:component-scan>
+    <context:component-scan base-package="cn.edu.ssh.module">
+    </context:component-scan>
+    
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+	<context:property-placeholder location="classpath:jdbc.properties"/>
 
-	<bean id="testAction" class="cn.edu.ssh.action.TestAction" />
-	<!-- dataSource -->
-	<!-- sessionFactory -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+	<bean id="entityManager"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="cn.edu.ssh.module" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">${dialect}</prop>
+			</props>
+		</property>
 	</bean>
 
-	<!-- 事物管理器 -->
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory"></property>
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${c3p0.driver_class}" />
+		<property name="jdbcUrl" value="${c3p0.url}" />
+		<property name="user" value="${c3p0.username}" />
+		<property name="password" value="${c3p0.passwd}" />
 	</bean>
 
-	<tx:advice id="sys_transact" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="save*" propagation="REQUIRED" />
-			<tx:method name="add*" propagation="REQUIRED" />
-			<tx:method name="correct*" propagation="REQUIRED" />
-			<tx:method name="update*" propagation="REQUIRED" />
-			<tx:method name="delete*" propagation="REQUIRED" />
-			<tx:method name="get" propagation="REQUIRED" read-only="true"/>
-			<tx:method name="select*" propagation="REQUIRED" read-only="true"/>
-			<tx:method name="read*" propagation="REQUIRED" read-only="true"/>
-		</tx:attributes>
-	</tx:advice>
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManager" />
+	</bean>
 	
-	<!-- 配置切面,通知 -->
-	<aop:config>
-		<aop:pointcut expression="execution(* cn.edu.ssh.service..*.*(..)))"
-			id="trans_point" />
-		<aop:advisor advice-ref="sys_transact" pointcut-ref="trans_point" />
-	</aop:config>
+	<bean id="persistenceExceptionTranslationPostProcessor"
+      class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 </beans>
