@@ -9,28 +9,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="t_user")
 public class User {
-	@Id
-	@Column(name="u_id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name="u_usename")
 	private String userName;
 	
-	@Column(name="u_name")
 	private String name;
 	
-	@Column(name="u_age")
 	private int age;
 	
-	@Column(name="salt")
 	private String salt;
 	
-	@Column(name="reg_date")
 	private Date regDate;
+	
+	private String password;
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -80,5 +72,22 @@ public class User {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	/** 
+	 * @return password 
+	 */
 	
+	public String getPassword() {
+		return password;
+	}
+	/** 
+	 * @param password 要设置的 password 
+	 */
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	@Override
+	public String toString() {
+		return this.name+"->"+this.userName+"->"+this.age;
+	}
 }

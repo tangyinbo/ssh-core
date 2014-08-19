@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <t_user u_id="1" u_name="tanginbo" u_passwd="tangtang" u_username="tangyinbo" salt="a" reg_date="2014-08-18" u_age="1"/>
+  <t_user u_id="2" u_name="admin" u_passwd="admin" u_username="admin" salt="a" reg_date="2014-08-18" u_age="1"/>
+  <t_user u_id="3" u_name="root" u_passwd="root" u_username="root" salt="a" reg_date="2014-08-18" u_age="1"/>
+</dataset>
